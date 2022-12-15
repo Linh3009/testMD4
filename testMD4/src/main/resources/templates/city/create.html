@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style th:replace="/layout::css"></style>
+</head>
+<body>
+<h1>Thêm thành phố</h1>
+<form id="form" th:action="@{/city/create}" method="post" th:object="${city}">
+    <label>Tên:
+        <input type="text" th:field="*{name}" required>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></span>
+    </label>
+    <label>Diện tích:
+        <input type="text" th:field="*{area}" required>
+        <span th:if="${#fields.hasErrors('area')}" th:errors="*{area}" style="color: red"></span>
+    </label>
+
+    <label>Dân số:
+        <input type="text" th:field="*{population}" required>
+        <span th:if="${#fields.hasErrors('population')}" th:errors="*{population}" style="color: red"></span>
+    </label>
+    <label>Gdp:
+        <input type="text" th:field="*{gdp}" required>
+        <span th:if="${#fields.hasErrors('gdp')}" th:errors="*{gdp}" style="color: red"></span>
+    </label>
+    <label>Mô tả:
+        <input type="text" th:field="*{description}" required>
+        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red"></p>
+    </label>
+
+    <label>Country:
+        <select th:field="*{country}">
+            <option th:each="c : ${country}" th:value="${c.getId()}" th:text="${c.getName()}"></option>
+        </select>
+    </label>
+    <button class="btn btn-warning" type="submit">Create</button>
+
+</form>
+<h4 th:class="notify" th:if="${status}">
+   <p style="color: blue">"Tạo thành công"</p>
+</h4>
+<a th:href="@{/city}">Quay lại trang</a>
+<footer th:replace="/layout::footer"></footer>
+</body>
+</html>
